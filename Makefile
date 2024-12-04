@@ -1,5 +1,5 @@
-sample.out:	main.o init.o insert.o update.o parameter.o print.o 
-		gcc -o sample.out ./object/main.o ./object/init.o ./object/insert.o ./object/update.o ./object/print.o ./object/parameter.o -lm -fopenmp -O3
+fdtd:	main.o init.o insert.o update.o parameter.o print.o 
+		gcc -o fdtd ./object/main.o ./object/init.o ./object/insert.o ./object/update.o ./object/print.o ./object/parameter.o -lm -fopenmp -O3
 main.o:	./main.c
 		gcc -o ./object/main.o -c ./main.c
 init.o: ./src/init.c

@@ -78,7 +78,7 @@ int main(void) {
   zeroPadding(&aft, ran);
 
   //ファイル名出力
-  sprintf(fn1, "./concrete_input.csv");
+  sprintf(fn1, "./output/simulate.csv");
   printf("%.*s\n", (int)sizeof fn1, fn1);
   
   fp1 = fopen(fn1, "wb");
