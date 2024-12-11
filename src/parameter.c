@@ -12,21 +12,21 @@ void parameter(Range *ran,Diff *dif, Pml *pml,Medium *med,Object *con,Object *cl
     //計算領域
     initCoord(&region, 15, 15, 15);
     initRange(ran, region, *pml);
-    //空気
-    Coord air_st, air_size;
-    initCoord(&air_st, 0, 0, 0);
-    initCoord(&air_size, ran->sr.Txx.x, ran->sr.Txx.y, ran->sr.Txx.z);
+   //  //空気
+   //  Coord air_st, air_size;
+   //  initCoord(&air_st, 0, 0, 0);
+   //  initCoord(&air_size, ran->sr.Txx.x, ran->sr.Txx.y, ran->sr.Txx.z);
     //コンクリート
     Coord con_st, con_size;
     initCoord(&con_st, 3, 3, 3);
-    initCoord(&con_size, 11, 11, 11);
+    initCoord(&con_size, 0, 0, 0);
     // 1 < clack_st < con - 1 (表面欠陥は今は考えない)
     //欠陥
     Coord clack_st, clack_size;
     initCoord(&clack_st, 4, 4, 4);
     initCoord(&clack_size, 1, 1, 1);
-    ip->freq = 2.0e4;
-    ip->mode = E_RCOS;//E_SINE,E_RCOS
+    ip->freq = 1.0e5;
+    ip->mode = E_SINE;//E_SINE,E_RCOS
 
     Coord halfcon;
     Coord center;

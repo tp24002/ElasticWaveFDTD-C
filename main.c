@@ -17,6 +17,7 @@
 void progressBar(int now, int max);
 
 int main(void) {
+  clock_t start = clock();
   Medium med[E_M_END];
   // Object air; // 領域全体に空気を設定するため今は必要なし
   Object con;
@@ -83,22 +84,36 @@ int main(void) {
   
   fp1 = fopen(fn1, "wb");
 
+  // for(int i = 0; i <= ran.sr.Txx.x; i++) {
+  //   for(int j = 0; j <= ran.sr.Txx.y; j++) {
+  //     fprintf(fp1, "%le,", ma.rho[i][j][39]);
+  //   }
+  //   fprintf(fp1, "\n");
+  // }
+
   for (int t = 0; t < tmax; t++) {
     Vel(&aft, &bef, ma, dif, ran.vr);
     Sig(&aft, &bef, ma, dif, ran.sr, ip, t);
     Tau(&aft, &bef, ma, dif, ran.tr);
-    // 加速度算出＆書き込み
-    for(int i = 0; i < outnum; i++){
-      Acceleration(&acc[i],&aft, &bef, dif, out[i]);
-      fprintf(fp1, "%le,%le,%le," , acc[i].x,acc[i].y,acc[i].z);
-    }
-    fprintf(fp1,"\n");
+    // // 加速度算出＆書き込み
+    // for(int i = 0; i < outnum; i++){
+    //   Acceleration(&acc[i],&aft, &bef, dif, out[i]);
+    //   fprintf(fp1, "%le,%le,%le," , acc[i].x,acc[i].y,acc[i].z);
+    // }
+    // fprintf(fp1,"\n");
+
+    fprintf(fp1, "%le,%le,%le,%le\n" , aft.ta.Txy[39][39][39],aft.ta.Txy[40][39][39],aft.ta.Txy[39][40][39], aft.ta.Txy[40][40][39]);
 
     swapBefAft(&aft, &bef, ran);
     progressBar(t, tmax);
   }
   fclose(fp1);
   printf("loop end.\n");
+  clock_t end = clock();
+  double time_spent = (double)(end - start) / CLOCKS_PER_SEC;
+
+  printf("実行時間: %lf 秒\n", time_spent);
+  printf("実行時間: %lf 分\n", time_spent / 60);
   return 0;
 }
 
