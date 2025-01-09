@@ -12,7 +12,7 @@
 
 #define clacknum 1
 #define outnum 4
-#define tmax 8192
+#define tmax 32768
 
 void progressBar(int now, int max);
 
@@ -61,9 +61,9 @@ int main(void) {
     printf("out[%d]:%d,%d,%d\n", i, out[i].x,out[i].y,out[i].z);
   }
   if(ip.mode == E_SINE){
-    printf("sin:%f\n", ip.freq);
+    printf("sin:%le\n", ip.freq);
   } else if(ip.mode == E_RCOS){
-    printf("cos:%f\n", ip.freq);
+    printf("cos:%le\n", ip.freq);
   }
 
   // 媒質配置
@@ -86,7 +86,7 @@ int main(void) {
 
   // for(int i = 0; i <= ran.sr.Txx.x; i++) {
   //   for(int j = 0; j <= ran.sr.Txx.y; j++) {
-  //     fprintf(fp1, "%le,", ma.rho[i][j][39]);
+  //     fprintf(fp1, "%le,", ma.rho[i][j][43]);
   //   }
   //   fprintf(fp1, "\n");
   // }
@@ -95,14 +95,17 @@ int main(void) {
     Vel(&aft, &bef, ma, dif, ran.vr);
     Sig(&aft, &bef, ma, dif, ran.sr, ip, t);
     Tau(&aft, &bef, ma, dif, ran.tr);
-    // // 加速度算出＆書き込み
-    // for(int i = 0; i < outnum; i++){
-    //   Acceleration(&acc[i],&aft, &bef, dif, out[i]);
-    //   fprintf(fp1, "%le,%le,%le," , acc[i].x,acc[i].y,acc[i].z);
-    // }
-    // fprintf(fp1,"\n");
-
-    fprintf(fp1, "%le,%le,%le,%le\n" , aft.ta.Txy[39][39][39],aft.ta.Txy[40][39][39],aft.ta.Txy[39][40][39], aft.ta.Txy[40][40][39]);
+    // 加速度算出＆書き込み
+    for(int i = 0; i < outnum; i++){
+      Acceleration(&acc[i],&aft, &bef, dif, out[i]);
+      fprintf(fp1, "%le,%le,%le," , acc[i].x,acc[i].y,acc[i].z);
+    }
+    fprintf(fp1,"\n");
+    // int i = 39;
+    // int j = 39;
+    // int k = 43;
+    // fprintf(fp1, "%le,%le,%le,%le," , aft.va.Vzx[i][j][k],aft.va.Vzy[i][j][k],aft.va.Vzz[i][j][k], aft.va.Vz[i][j][k]);
+    // fprintf(fp1, "%le,%le,%le,%le\n" , aft.sa.Tzzx[i][j][k],aft.sa.Tzzy[i][j][k],aft.sa.Tzzz[i][j][k], aft.sa.Tzz[i][j][k]);
 
     swapBefAft(&aft, &bef, ran);
     progressBar(t, tmax);

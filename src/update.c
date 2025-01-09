@@ -35,7 +35,7 @@ void Txx(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, SigRan sr, Inpaluse ip, 
           - 2. * ma.khi[i][j][k] / (2. + ma.zetady[i][j][k] * dif.dt) * (bef->va.Vy[i][j + 1][k] - bef->va.Vy[i][j][k]) / dif.dy;
 
         aft->sa.Txxz[i][j][k] = (2. - ma.zetadz[i][j][k] * dif.dt) / (2. + ma.zetadz[i][j][k] * dif.dt) * bef->sa.Txxz[i][j][k]
-         + 2. * (ma.ramda[i][j][k] * dif.dt + ma.khi[i][j][k]) / (2. + ma.zetadz[i][j][k + 1] * dif.dt) * (aft->va.Vz[i][j][k] - aft->va.Vz[i][j][k]) / dif.dz
+         + 2. * (ma.ramda[i][j][k] * dif.dt + ma.khi[i][j][k]) / (2. + ma.zetadz[i][j][k] * dif.dt) * (aft->va.Vz[i][j][k + 1] - aft->va.Vz[i][j][k]) / dif.dz
           - 2. * ma.khi[i][j][k] / (2. + ma.zetadz[i][j][k] * dif.dt) * (bef->va.Vz[i][j][k + 1] - bef->va.Vz[i][j][k]) / dif.dz;
       }
     }
@@ -109,7 +109,6 @@ void Tzz(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, SigRan sr, Inpaluse ip, 
   } else {
     ip.Tzz[ip.in.x][ip.in.y][ip.in.z] = 0.;
   }
-
   // Tzzの更新式
 #pragma omp parallel for private(i, j, k)
   for (k = 0; k <= Tzzkmax; k++) {
@@ -129,6 +128,7 @@ void Tzz(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, SigRan sr, Inpaluse ip, 
       }
     }
   }
+  
 
 //全方向加算
 #pragma omp parallel for private(i, j, k)
@@ -139,6 +139,9 @@ void Tzz(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, SigRan sr, Inpaluse ip, 
       }
     }
   }
+  i = 39, j = 39, k = 43;
+  // printf("tzza:%le\n", 2. * (ma.c11[i][j][k] * dif.dt + ma.xi11[i][j][k]) / (2. + ma.zetadz[i][j][k] * dif.dt));
+  // printf("tzzb:%le\n", 2. * ma.xi11[i][j][k] / (2. + ma.zetadz[i][j][k] * dif.dt));
 
 }
 //垂直応力計算
@@ -356,7 +359,15 @@ void Vz(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, VelRan vr) {
       }
     }
   }
+  i = 39, j = 39, k = 43;
+  Azetazx = (ma.zetazx[i][j][k - 1] + ma.zetazx[i][j][k]) / 2.;
+  Azetazy = (ma.zetazy[i][j][k - 1] + ma.zetazy[i][j][k]) / 2.;
+  Azetazz = (ma.zetazz[i][j][k - 1] + ma.zetazz[i][j][k]) / 2.;
+  Arho    = (   ma.rho[i][j][k - 1] +    ma.rho[i][j][k]) / 2.;
+  // printf("a%le\n", (2. * Arho - Azetazz * dif.dt) / (2. * Arho + Azetazz * dif.dt));
+  // printf("b%le\n", 2. * dif.dt / (2. * Arho + Azetazz * dif.dt));
 }
+
 //粒子速度計算
 void Vel(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, VelRan vr) {
   Vx(aft, bef, ma, dif, vr);
@@ -369,6 +380,7 @@ void Acceleration(CoordD *Acc,BefAft *aft, BefAft *bef, Diff dif, Coord out){
   Acc->y = ((aft->va.Vy[out.x][out.y + 1][out.z] - bef->va.Vy[out.x][out.y + 1][out.z]) / dif.dt  + (aft->va.Vy[out.x][out.y][out.z] - bef->va.Vy[out.x][out.y][out.z]) / dif.dt) / 2;
   Acc->z = ((aft->va.Vz[out.x][out.y][out.z + 1] - bef->va.Vz[out.x][out.y][out.z + 1]) / dif.dt  + (aft->va.Vz[out.x][out.y][out.z] - bef->va.Vz[out.x][out.y][out.z]) / dif.dt) / 2;
 }
+
 //更新
 void swapBefAft(BefAft *aft, BefAft *bef, Range ran) {
   int i, j, k;

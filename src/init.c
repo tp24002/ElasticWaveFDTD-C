@@ -14,30 +14,40 @@ void initMedium(Medium *med) {
   for (int mednum = 0; mednum < E_M_END; mednum++) {
     switch (mednum) {
       case E_AIR:
-        med[mednum].rho = 1.205;  // 密度/////////////////////////////////////////////////////
+        med[mednum].rho = 1.205;  // 密度
         med[mednum].K = 1.422e5;  // 体積弾性率
         med[mednum].E = 0.;       // ヤング率
-        med[mednum].G = 0.;       // 剛性率/////////////////////////////////////////////////////
+        med[mednum].G = 0.;       // 剛性率
         med[mednum].nu = 0.;     // ポアソン比
-        med[mednum].ramda = med[mednum].K - 2. / 3. * med[mednum].G;  // 第1ラメ定数/////////////////////////////////////////////////////
-        med[mednum].zeta = 5.;    //セル間摩擦係数/////////////////////////////////////////////////////
-        med[mednum].gamma = 1.8e-5;   //第1粘性/////////////////////////////////////////////////////
-        med[mednum].khi = 0.;         //第2粘性/////////////////////////////////////////////////////
+        med[mednum].ramda = med[mednum].K - 2. / 3. * med[mednum].G;  // 第1ラメ定数(1.422000e+05)
+        med[mednum].zeta = 5.;    //セル間摩擦係数
+        med[mednum].gamma = 1.8e-5;   //第1粘性
+        med[mednum].khi = 0.;         //第2粘性
         med[mednum].eta = 0.;
         med[mednum].omega = 0.;
         break;
       case E_CON:
-        med[mednum].rho = 2400.;  // 密度/////////////////////////////////////////////////////
+        med[mednum].rho = 2400.;  // 密度
         med[mednum].E = 2.4e10;   // ヤング率
         med[mednum].nu = 0.2;     // ポアソン比
-        med[mednum].G = med[mednum].E / 2. / (1. + med[mednum].nu);  // 剛性率////////////////////////////////////第2ラメ
-        med[mednum].K = med[mednum].E / 3. / (1. - 2. * med[mednum].nu);  // 体積弾性率
-        med[mednum].ramda = med[mednum].E * med[mednum].nu / (1. + med[mednum].nu) / (1. - 2. * med[mednum].nu);  // 第1ラメ定数//////////////
-        med[mednum].zeta = 2.5e4;//セル間摩擦係数////////////////////////////////////////////////////////////////////////////////////
+        // 第2ラメ定数，剛性率（1.000000e+10）mu
+        med[mednum].G = med[mednum].E / 2. / (1. + med[mednum].nu);
+
+        // 体積弾性率（1.333333e+10）
+        med[mednum].K = med[mednum].E / 3. / (1. - 2. * med[mednum].nu);
+
+        // 第1ラメ定数（6.666667e+09）
+        med[mednum].ramda = med[mednum].E * med[mednum].nu / (1. + med[mednum].nu) / (1. - 2. * med[mednum].nu);
+
+        med[mednum].zeta = 2.5e4;//セル間摩擦係数
         med[mednum].eta = 0.005;//粘性定数算出係数(損失係数)
         med[mednum].omega = 2. * M_PI * 32.;//粘性定数算出係数(角周波数)
-        med[mednum].gamma = med[mednum].eta * med[mednum].G / med[mednum].omega;//第1粘性定数//////////////////////////////////////
-        med[mednum].khi = med[mednum].eta * med[mednum].ramda / med[mednum].omega;//第2粘性定数/////////////////////////////////////
+
+        // 第1粘性定数（2.486796e+05）
+        med[mednum].gamma = med[mednum].eta * med[mednum].G / med[mednum].omega;
+        
+        // 第2粘性定数（1.657864e+05）
+        med[mednum].khi = med[mednum].eta * med[mednum].ramda / med[mednum].omega;
         break;
       default:
         break;
@@ -53,22 +63,28 @@ void initCoord(Coord *co, int x, int y, int z) {
 
 //差分間隔
 void initDiff(Diff *dif, Medium *med) {
-  dif->dx = 0.005;
-  dif->dy = 0.005;
-  dif->dz = 0.005;
+  dif->dx = 0.001;
+  dif->dy = 0.001;
+  dif->dz = 0.001;
   double tmp;
+  double ramda;
   
   for(int i = E_AIR; i < E_M_END - 1; i++){
     tmp = MAX(sqrt((med[i].K + 4. / 3. * med[i].G) / med[i].rho),tmp);
+    ramda = MAX(ramda, med[i].ramda);
   }
   printf("v = %lf\n", tmp);
-  dif->dt = dif->dx / tmp / 100.;
+  double n = 0.5;
+  dif->dt = MIN(0.9 * dif->dx / (tmp * sqrt(3)), 1 / ramda);
+  // dif->dt = n * 3e-9/20;
+  // dif->dt = 0.9 * dif->dx / (tmp * sqrt(3));
+  // dif->dt = dif->dx / tmp / 100.;
 }
 
 void initPml(Pml *pml, Medium *med, Diff dif) {
-  pml->ta = 4.;
+  pml->ta = 3.;
   pml->fm = 3.574e4;
-  double R = 1.e-20;
+  double R = 1.e-10;
   double tmp,tmp_v;//max
   initCoord(&pml->pl1, 32, 32, 32);
   initCoord(&pml->pl2, 32, 32, 32);
