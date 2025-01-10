@@ -23,9 +23,9 @@ void Txx(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, SigRan sr, Inpaluse ip, 
     ip.Txx[ip.in.x][ip.in.y][ip.in.z] = 0.;
   }
 #pragma omp parallel for private(i, j, k)
-  for (k = 0; k <= Txxkmax; k++) {
-    for (j = 0; j <= Txxjmax; j++) {
-      for (i = 0; i <= Txximax; i++) {
+  for (k = 0; k < Txxkmax; k++) {
+    for (j = 0; j < Txxjmax; j++) {
+      for (i = 0; i < Txximax; i++) {
         aft->sa.Txxx[i][j][k] = (2. - ma.zetadx[i][j][k] * dif.dt) / (2. + ma.zetadx[i][j][k] * dif.dt) * bef->sa.Txxx[i][j][k]
          + 2. * (ma.c11[i][j][k] * dif.dt + ma.xi11[i][j][k]) / (2. + ma.zetadx[i][j][k] * dif.dt) * (aft->va.Vx[i + 1][j][k] - aft->va.Vx[i][j][k]) / dif.dx 
           - 2. * ma.xi11[i][j][k] / (2. + ma.zetadx[i][j][k] * dif.dt) * (bef->va.Vx[i + 1][j][k] - bef->va.Vx[i][j][k]) / dif.dx;
@@ -43,9 +43,9 @@ void Txx(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, SigRan sr, Inpaluse ip, 
 
 //全方向加算
 #pragma omp parallel for private(i, j, k)
-  for (k = 0; k <= Txxkmax; k++) {
-    for (j = 0; j <= Txxjmax; j++) {
-      for (i = 0; i <= Txximax; i++) {
+  for (k = 0; k < Txxkmax; k++) {
+    for (j = 0; j < Txxjmax; j++) {
+      for (i = 0; i < Txximax; i++) {
         aft->sa.Txx[i][j][k] = aft->sa.Txxx[i][j][k] + aft->sa.Txxy[i][j][k] + aft->sa.Txxz[i][j][k] + ip.Txx[i][j][k];
       }
     }
@@ -67,9 +67,9 @@ void Tyy(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, SigRan sr, Inpaluse ip, 
     ip.Tyy[ip.in.x][ip.in.y][ip.in.z] = 0.;
   }
 #pragma omp parallel for private(i, j, k)
-  for (k = 0; k <= Tyykmax; k++) {
-    for (j = 0; j <= Tyyjmax; j++) {
-      for (i = 0; i <= Tyyimax; i++) {
+  for (k = 0; k < Tyykmax; k++) {
+    for (j = 0; j < Tyyjmax; j++) {
+      for (i = 0; i < Tyyimax; i++) {
         aft->sa.Tyyx[i][j][k] = (2. - ma.zetadx[i][j][k] * dif.dt) / (2. + ma.zetadx[i][j][k] * dif.dt) * bef->sa.Tyyx[i][j][k]
          + 2. * (ma.ramda[i][j][k] * dif.dt + ma.khi[i][j][k]) / (2. + ma.zetadx[i][j][k] * dif.dt) * (aft->va.Vx[i + 1][j][k] - aft->va.Vx[i][j][k]) / dif.dx
           - 2. * ma.khi[i][j][k] / (2. + ma.zetadx[i][j][k] * dif.dt) * (bef->va.Vx[i + 1][j][k] - bef->va.Vx[i][j][k]) / dif.dx;
@@ -86,9 +86,9 @@ void Tyy(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, SigRan sr, Inpaluse ip, 
   }
 //全方向加算
 #pragma omp parallel for private(i, j, k)
-  for (k = 0; k <= Tyykmax; k++) {
-    for (j = 0; j <= Tyyjmax; j++) {
-      for (i = 0; i <= Tyyimax; i++) {
+  for (k = 0; k < Tyykmax; k++) {
+    for (j = 0; j < Tyyjmax; j++) {
+      for (i = 0; i < Tyyimax; i++) {
         aft->sa.Tyy[i][j][k] = aft->sa.Tyyx[i][j][k] + aft->sa.Tyyy[i][j][k] + aft->sa.Tyyz[i][j][k] + ip.Tyy[i][j][k];
       }
     }
@@ -111,9 +111,9 @@ void Tzz(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, SigRan sr, Inpaluse ip, 
   }
   // Tzzの更新式
 #pragma omp parallel for private(i, j, k)
-  for (k = 0; k <= Tzzkmax; k++) {
-    for (j = 0; j <= Tzzjmax; j++) {
-      for (i = 0; i <= Tzzimax; i++) {
+  for (k = 0; k < Tzzkmax; k++) {
+    for (j = 0; j < Tzzjmax; j++) {
+      for (i = 0; i < Tzzimax; i++) {
         aft->sa.Tzzx[i][j][k] = (2. - ma.zetadx[i][j][k] * dif.dt) / (2. + ma.zetadx[i][j][k] * dif.dt) * bef->sa.Tzzx[i][j][k]
          + 2. * (ma.ramda[i][j][k] * dif.dt + ma.khi[i][j][k]) / (2. + ma.zetadx[i][j][k] * dif.dt) * (aft->va.Vx[i + 1][j][k] - aft->va.Vx[i][j][k]) / dif.dx
           - 2. * ma.khi[i][j][k] / (2. + ma.zetadx[i][j][k] * dif.dt) * (bef->va.Vx[i + 1][j][k] - bef->va.Vx[i][j][k]) / dif.dx;
@@ -132,9 +132,9 @@ void Tzz(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, SigRan sr, Inpaluse ip, 
 
 //全方向加算
 #pragma omp parallel for private(i, j, k)
-  for (k = 0; k <= Tzzkmax; k++) {
-    for (j = 0; j <= Tzzjmax; j++) {
-      for (i = 0; i <= Tzzimax; i++) {
+  for (k = 0; k < Tzzkmax; k++) {
+    for (j = 0; j < Tzzjmax; j++) {
+      for (i = 0; i < Tzzimax; i++) {
         aft->sa.Tzz[i][j][k] = aft->sa.Tzzx[i][j][k] + aft->sa.Tzzy[i][j][k] + aft->sa.Tzzz[i][j][k] + ip.Tzz[i][j][k];
       }
     }
@@ -156,9 +156,9 @@ void Txy(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, TauRan tr) {
   int Txyimax = tr.Txy.x, Txyjmax = tr.Txy.y, Txykmax = tr.Txy.z;
   double Hzetadx, Hzetady, Hzetadz, Hmu, Hgamma;
 #pragma omp parallel for private(i, j, k)
-  for (k = 0; k <= Txykmax; k++) {
-    for (j = 1; j <= Txyjmax - 1; j++) {
-      for (i = 1; i <= Txyimax - 1; i++) {
+  for (k = 0; k < Txykmax; k++) {
+    for (j = 1; j < Txyjmax - 1; j++) {
+      for (i = 1; i < Txyimax - 1; i++) {
         //PML:減衰係数
         //計算領域:摩擦定数
         Hzetadx = 4. * pow((1. / ma.zetadx[i - 1][j - 1][k]) + (1. / ma.zetadx[i][j - 1][k]) + (1. / ma.zetadx[i - 1][j][k]) + (1. / ma.zetadx[i][j][k]), -1.);
@@ -180,9 +180,9 @@ void Txy(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, TauRan tr) {
   }
 //全方向加算
 #pragma omp parallel for private(i, j, k)
-  for (k = 0; k <= Txykmax; k++) {
-    for (j = 0; j <= Txyjmax; j++) {
-      for (i = 0; i <= Txyimax; i++) {
+  for (k = 0; k < Txykmax; k++) {
+    for (j = 0; j < Txyjmax; j++) {
+      for (i = 0; i < Txyimax; i++) {
         aft->ta.Txy[i][j][k] = aft->ta.Txyx[i][j][k] + aft->ta.Txyy[i][j][k];
       }
     }
@@ -194,9 +194,9 @@ void Tyz(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, TauRan tr) {
   int Tyzimax = tr.Tyz.x, Tyzjmax = tr.Tyz.y, Tyzkmax = tr.Tyz.z;
   double Hzetadx, Hzetady, Hzetadz, Hmu, Hgamma;
 #pragma omp parallel for private(i, j, k)
-  for (k = 1; k <= Tyzkmax - 1; k++) {
-    for (j = 1; j <= Tyzjmax - 1; j++) {
-      for (i = 0; i <= Tyzimax; i++) {
+  for (k = 1; k < Tyzkmax - 1; k++) {
+    for (j = 1; j < Tyzjmax - 1; j++) {
+      for (i = 0; i < Tyzimax; i++) {
         Hzetady = 4. * pow((1. / ma.zetady[i][j - 1][k - 1]) + (1. / ma.zetady[i][j - 1][k]) + (1. / ma.zetady[i][j][k - 1]) + (1. / ma.zetady[i][j][k]), -1.);
         Hzetadz = 4. * pow((1. / ma.zetadz[i][j - 1][k - 1]) + (1. / ma.zetadz[i][j - 1][k]) + (1. / ma.zetadz[i][j][k - 1]) + (1. / ma.zetadz[i][j][k]), -1.);
         Hmu     = 4. * pow((1. /     ma.mu[i][j - 1][k - 1]) + (1. /     ma.mu[i][j - 1][k]) + (1. /     ma.mu[i][j][k - 1]) + (1. /     ma.mu[i][j][k]), -1.);
@@ -214,9 +214,9 @@ void Tyz(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, TauRan tr) {
   }
 //全方向加算
 #pragma omp parallel for private(i, j, k)
-  for (k = 0; k <= Tyzkmax; k++) {
-    for (j = 0; j <= Tyzjmax; j++) {
-      for (i = 0; i <= Tyzimax; i++) {
+  for (k = 0; k < Tyzkmax; k++) {
+    for (j = 0; j < Tyzjmax; j++) {
+      for (i = 0; i < Tyzimax; i++) {
         aft->ta.Tyz[i][j][k] = aft->ta.Tyzy[i][j][k] + aft->ta.Tyzz[i][j][k];
       }
     }
@@ -228,9 +228,9 @@ void Tzx(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, TauRan tr) {
   int Tzximax = tr.Tzx.x, Tzxjmax = tr.Tzx.y, Tzxkmax = tr.Tzx.z;
   double Hzetadx, Hzetady, Hzetadz, Hmu, Hgamma;
 #pragma omp parallel for private(i, j, k)
-  for (k = 1; k <= Tzxkmax - 1; k++) {
-    for (j = 0; j <= Tzxjmax; j++) {
-      for (i = 1; i <= Tzximax - 1; i++) {
+  for (k = 1; k < Tzxkmax - 1; k++) {
+    for (j = 0; j < Tzxjmax; j++) {
+      for (i = 1; i < Tzximax - 1; i++) {
         Hzetadx = 4. * pow((1. / ma.zetadx[i - 1][j][k - 1]) + (1. / ma.zetadx[i - 1][j][k]) + (1. / ma.zetadx[i][j][k - 1]) + (1. / ma.zetadx[i][j][k]), -1.);
         Hzetadz = 4. * pow((1. / ma.zetadz[i - 1][j][k - 1]) + (1. / ma.zetadz[i - 1][j][k]) + (1. / ma.zetadz[i][j][k - 1]) + (1. / ma.zetadz[i][j][k]), -1.);
         Hmu     = 4. * pow((1. /     ma.mu[i - 1][j][k - 1]) + (1. /     ma.mu[i - 1][j][k]) + (1. /     ma.mu[i][j][k - 1]) + (1. /     ma.mu[i][j][k]), -1.);
@@ -248,9 +248,9 @@ void Tzx(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, TauRan tr) {
   }
 //全方向加算
 #pragma omp parallel for private(i, j, k)
-  for (k = 0; k <= Tzxkmax; k++) {
-    for (j = 0; j <= Tzxjmax; j++) {
-      for (i = 0; i <= Tzximax; i++) {
+  for (k = 0; k < Tzxkmax; k++) {
+    for (j = 0; j < Tzxjmax; j++) {
+      for (i = 0; i < Tzximax; i++) {
         aft->ta.Tzx[i][j][k] = aft->ta.Tzxx[i][j][k] + aft->ta.Tzxz[i][j][k];
       }
     }
@@ -268,9 +268,9 @@ void Vx(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, VelRan vr) {
   int Vximax = vr.Vx.x, Vxjmax = vr.Vx.y, Vxkmax = vr.Vx.z;
   double Azetaxx, Azetaxy, Azetaxz, Arho;
 #pragma omp parallel for private(i, j, k)
-  for (k = 0; k <= Vxkmax; k++) {
-    for (j = 0; j <= Vxjmax; j++) {
-      for (i = 1; i <= Vximax - 1; i++) {
+  for (k = 0; k < Vxkmax; k++) {
+    for (j = 0; j < Vxjmax; j++) {
+      for (i = 1; i < Vximax - 1; i++) {
         Azetaxx = (ma.zetaxx[i - 1][j][k] + ma.zetaxx[i][j][k]) / 2.;
         Azetaxy = (ma.zetaxy[i - 1][j][k] + ma.zetaxy[i][j][k]) / 2.;
         Azetaxz = (ma.zetaxz[i - 1][j][k] + ma.zetaxz[i][j][k]) / 2.;
@@ -288,9 +288,9 @@ void Vx(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, VelRan vr) {
   }
 //全方向加算
 #pragma omp parallel for private(i, j, k)
-  for (k = 0; k <= Vxkmax; k++) {
-    for (j = 0; j <= Vxjmax; j++) {
-      for (i = 0; i <= Vximax; i++) {
+  for (k = 0; k < Vxkmax; k++) {
+    for (j = 0; j < Vxjmax; j++) {
+      for (i = 0; i < Vximax; i++) {
         aft->va.Vx[i][j][k] = aft->va.Vxx[i][j][k] + aft->va.Vxy[i][j][k] + aft->va.Vxz[i][j][k];
       }
     }
@@ -302,9 +302,9 @@ void Vy(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, VelRan vr) {
   int Vyimax = vr.Vy.x, Vyjmax = vr.Vy.y, Vykmax = vr.Vy.z;
   double Azetayx, Azetayy, Azetayz, Arho;
 #pragma omp parallel for private(i, j, k)
-  for (k = 0; k <= Vykmax; k++) {
-    for (j = 1; j <= Vyjmax - 1; j++) {
-      for (i = 0; i <= Vyimax; i++) {
+  for (k = 0; k < Vykmax; k++) {
+    for (j = 1; j < Vyjmax - 1; j++) {
+      for (i = 0; i < Vyimax; i++) {
         Azetayx = (ma.zetayx[i][j - 1][k] + ma.zetayx[i][j][k]) / 2.;
         Azetayy = (ma.zetayy[i][j - 1][k] + ma.zetayy[i][j][k]) / 2.;
         Azetayz = (ma.zetayz[i][j - 1][k] + ma.zetayz[i][j][k]) / 2.;
@@ -320,9 +320,9 @@ void Vy(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, VelRan vr) {
   }
 //全方向加算
 #pragma omp parallel for private(i, j, k)
-  for (k = 0; k <= Vykmax; k++) {
-    for (j = 0; j <= Vyjmax; j++) {
-      for (i = 0; i <= Vyimax; i++) {
+  for (k = 0; k < Vykmax; k++) {
+    for (j = 0; j < Vyjmax; j++) {
+      for (i = 0; i < Vyimax; i++) {
         aft->va.Vy[i][j][k] = aft->va.Vyx[i][j][k] + aft->va.Vyy[i][j][k] + aft->va.Vyz[i][j][k];
       }
     }
@@ -334,9 +334,9 @@ void Vz(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, VelRan vr) {
   int Vzimax = vr.Vz.x, Vzjmax = vr.Vz.y, Vzkmax = vr.Vz.z;
   double Azetazx, Azetazy, Azetazz, Arho;
 #pragma omp parallel for private(i, j, k)
-  for (k = 1; k <= Vzkmax - 1; k++) {
-    for (j = 0; j <= Vzjmax; j++) {
-      for (i = 0; i <= Vzimax; i++) {
+  for (k = 1; k < Vzkmax - 1; k++) {
+    for (j = 0; j < Vzjmax; j++) {
+      for (i = 0; i < Vzimax; i++) {
         Azetazx = (ma.zetazx[i][j][k - 1] + ma.zetazx[i][j][k]) / 2.;
         Azetazy = (ma.zetazy[i][j][k - 1] + ma.zetazy[i][j][k]) / 2.;
         Azetazz = (ma.zetazz[i][j][k - 1] + ma.zetazz[i][j][k]) / 2.;
@@ -352,9 +352,9 @@ void Vz(BefAft *aft, BefAft *bef, MedArr ma, Diff dif, VelRan vr) {
   }
 //全方向加算
 #pragma omp parallel for private(i, j, k)
-  for (k = 0; k <= Vzkmax; k++) {
-    for (j = 0; j <= Vzjmax; j++) {
-      for (i = 0; i <= Vzimax; i++) {
+  for (k = 0; k < Vzkmax; k++) {
+    for (j = 0; j < Vzjmax; j++) {
+      for (i = 0; i < Vzimax; i++) {
         aft->va.Vz[i][j][k] = aft->va.Vzx[i][j][k] + aft->va.Vzy[i][j][k] + aft->va.Vzz[i][j][k];
       }
     }
@@ -394,9 +394,9 @@ void swapBefAft(BefAft *aft, BefAft *bef, Range ran) {
   int Vyimax = ran.vr.Vy.x, Vyjmax = ran.vr.Vy.y, Vykmax = ran.vr.Vy.z;
   int Vzimax = ran.vr.Vz.x, Vzjmax = ran.vr.Vz.y, Vzkmax = ran.vr.Vz.z;
 #pragma omp parallel for private(i, j, k)
-  for (k = 0; k <= Txxkmax; k++) {
-    for (j = 0; j <= Txxjmax; j++) {
-      for (i = 0; i <= Txximax; i++) {
+  for (k = 0; k < Txxkmax; k++) {
+    for (j = 0; j < Txxjmax; j++) {
+      for (i = 0; i < Txximax; i++) {
         bef->sa.Txx[i][j][k] = aft->sa.Txx[i][j][k];
         bef->sa.Txxx[i][j][k] = aft->sa.Txxx[i][j][k];
         bef->sa.Txxy[i][j][k] = aft->sa.Txxy[i][j][k];
@@ -405,9 +405,9 @@ void swapBefAft(BefAft *aft, BefAft *bef, Range ran) {
     }
   }
 #pragma omp parallel for private(i, j, k)
-  for (k = 0; k <= Tyykmax; k++) {
-    for (j = 0; j <= Tyyjmax; j++) {
-      for (i = 0; i <= Tyyimax; i++) {
+  for (k = 0; k < Tyykmax; k++) {
+    for (j = 0; j < Tyyjmax; j++) {
+      for (i = 0; i < Tyyimax; i++) {
         bef->sa.Tyy[i][j][k] = aft->sa.Tyy[i][j][k];
         bef->sa.Tyyx[i][j][k] = aft->sa.Tyyx[i][j][k];
         bef->sa.Tyyy[i][j][k] = aft->sa.Tyyy[i][j][k];
@@ -416,9 +416,9 @@ void swapBefAft(BefAft *aft, BefAft *bef, Range ran) {
     }
   }
 #pragma omp parallel for private(i, j, k)
-  for (k = 0; k <= Tzzkmax; k++) {
-    for (j = 0; j <= Tzzjmax; j++) {
-      for (i = 0; i <= Tzzimax; i++) {
+  for (k = 0; k < Tzzkmax; k++) {
+    for (j = 0; j < Tzzjmax; j++) {
+      for (i = 0; i < Tzzimax; i++) {
         bef->sa.Tzz[i][j][k] = aft->sa.Tzz[i][j][k];
         bef->sa.Tzzx[i][j][k] = aft->sa.Tzzx[i][j][k];
         bef->sa.Tzzy[i][j][k] = aft->sa.Tzzy[i][j][k];
@@ -427,9 +427,9 @@ void swapBefAft(BefAft *aft, BefAft *bef, Range ran) {
     }
   }
 #pragma omp parallel for private(i, j, k)
-  for (i = 0; i <= Txyimax; i++) {
-    for (j = 0; j <= Txyjmax; j++) {
-      for (k = 0; k <= Txykmax; k++) {
+  for (i = 0; i < Txyimax; i++) {
+    for (j = 0; j < Txyjmax; j++) {
+      for (k = 0; k < Txykmax; k++) {
         bef->ta.Txy[i][j][k] = aft->ta.Txy[i][j][k];
         bef->ta.Txyx[i][j][k] = aft->ta.Txyx[i][j][k];
         bef->ta.Txyy[i][j][k] = aft->ta.Txyy[i][j][k];
@@ -437,9 +437,9 @@ void swapBefAft(BefAft *aft, BefAft *bef, Range ran) {
     }
   }
 #pragma omp parallel for private(i, j, k)
-  for (i = 0; i <= Tyzimax; i++) {
-    for (j = 0; j <= Tyzjmax; j++) {
-      for (k = 0; k <= Tyzkmax; k++) {
+  for (i = 0; i < Tyzimax; i++) {
+    for (j = 0; j < Tyzjmax; j++) {
+      for (k = 0; k < Tyzkmax; k++) {
         bef->ta.Tyz[i][j][k] = aft->ta.Tyz[i][j][k];
         bef->ta.Tyzy[i][j][k] = aft->ta.Tyzy[i][j][k];
         bef->ta.Tyzz[i][j][k] = aft->ta.Tyzz[i][j][k];
@@ -447,9 +447,9 @@ void swapBefAft(BefAft *aft, BefAft *bef, Range ran) {
     }
   }
 #pragma omp parallel for private(i, j, k)
-  for (i = 0; i <= Tzximax; i++) {
-    for (j = 0; j <= Tzxjmax; j++) {
-      for (k = 0; k <= Tzxkmax; k++) {
+  for (i = 0; i < Tzximax; i++) {
+    for (j = 0; j < Tzxjmax; j++) {
+      for (k = 0; k < Tzxkmax; k++) {
         bef->ta.Tzx[i][j][k] = aft->ta.Tzx[i][j][k];
         bef->ta.Tzxz[i][j][k] = aft->ta.Tzxz[i][j][k];
         bef->ta.Tzxx[i][j][k] = aft->ta.Tzxx[i][j][k];
@@ -457,9 +457,9 @@ void swapBefAft(BefAft *aft, BefAft *bef, Range ran) {
     }
   }
 #pragma omp parallel for private(i, j, k)
-  for (k = 0; k <= Vxkmax; k++) {
-    for (j = 0; j <= Vxjmax; j++) {
-      for (i = 0; i <= Vximax; i++) {
+  for (k = 0; k < Vxkmax; k++) {
+    for (j = 0; j < Vxjmax; j++) {
+      for (i = 0; i < Vximax; i++) {
         bef->va.Vx[i][j][k] = aft->va.Vx[i][j][k];
         bef->va.Vxx[i][j][k] = aft->va.Vxx[i][j][k];
         bef->va.Vxy[i][j][k] = aft->va.Vxy[i][j][k];
@@ -468,9 +468,9 @@ void swapBefAft(BefAft *aft, BefAft *bef, Range ran) {
     }
   }
 #pragma omp parallel for private(i, j, k)
-  for (k = 0; k <= Vykmax; k++) {
-    for (j = 0; j <= Vyjmax; j++) {
-      for (i = 0; i <= Vyimax; i++) {
+  for (k = 0; k < Vykmax; k++) {
+    for (j = 0; j < Vyjmax; j++) {
+      for (i = 0; i < Vyimax; i++) {
         bef->va.Vy[i][j][k] = aft->va.Vy[i][j][k];
         bef->va.Vyx[i][j][k] = aft->va.Vyx[i][j][k];
         bef->va.Vyy[i][j][k] = aft->va.Vyy[i][j][k];
@@ -479,9 +479,9 @@ void swapBefAft(BefAft *aft, BefAft *bef, Range ran) {
     }
   }
 #pragma omp parallel for private(i, j, k)
-  for (k = 0; k <= Vzkmax; k++) {
-    for (j = 0; j <= Vzjmax; j++) {
-      for (i = 0; i <= Vzimax; i++) {
+  for (k = 0; k < Vzkmax; k++) {
+    for (j = 0; j < Vzjmax; j++) {
+      for (i = 0; i < Vzimax; i++) {
         bef->va.Vz[i][j][k] = aft->va.Vz[i][j][k];
         bef->va.Vzx[i][j][k] = aft->va.Vzx[i][j][k];
         bef->va.Vzy[i][j][k] = aft->va.Vzy[i][j][k];

@@ -43,7 +43,9 @@ int main(void) {
   // //ここをfor文で
   // initCoord(&clack_st, clack_st.x, clack_st.y, clack_st.z);
   initBefAft(&bef, ran);
-  initBefAft(&aft, ran);
+  initBefAft(&aft, ran);   
+  printf("ok\n");
+
   initMedArr(&ma, ran.sr);
   initInpalse(&ip, ran.sr, pml);
 
