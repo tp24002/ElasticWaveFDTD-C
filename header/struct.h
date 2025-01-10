@@ -71,67 +71,67 @@ typedef struct {
 } Diff;
 
 typedef struct {
-  double ***ramda;
-  double ***mu;
-  double ***c11;
-  double ***rho;
-  double ***zetaxx;
-  double ***zetaxy;
-  double ***zetaxz;
-  double ***zetayx;
-  double ***zetayy;
-  double ***zetayz;
-  double ***zetazx;
-  double ***zetazy;
-  double ***zetazz;
-  double ***gamma;
-  double ***khi;
-  double ***xi11;
-  double ***zetadx;
-  double ***zetady;
-  double ***zetadz;
+  double *ramda;
+  double *mu;
+  double *c11;
+  double *rho;
+  double *zetaxx;
+  double *zetaxy;
+  double *zetaxz;
+  double *zetayx;
+  double *zetayy;
+  double *zetayz;
+  double *zetazx;
+  double *zetazy;
+  double *zetazz;
+  double *gamma;
+  double *khi;
+  double *xi11;
+  double *zetadx;
+  double *zetady;
+  double *zetadz;
 } MedArr;
 
 typedef struct {
-  double ***Txx;
-  double ***Txxx;
-  double ***Txxy;
-  double ***Txxz;
-  double ***Tyy;
-  double ***Tyyx;
-  double ***Tyyy;
-  double ***Tyyz;
-  double ***Tzz;
-  double ***Tzzx;
-  double ***Tzzy;
-  double ***Tzzz;
+  double *Txx;
+  double *Txxx;
+  double *Txxy;
+  double *Txxz;
+  double *Tyy;
+  double *Tyyx;
+  double *Tyyy;
+  double *Tyyz;
+  double *Tzz;
+  double *Tzzx;
+  double *Tzzy;
+  double *Tzzz;
 } SigArr;
 
 typedef struct {
-  double ***Txy;
-  double ***Txyx;
-  double ***Txyy;
-  double ***Tyz;
-  double ***Tyzy;
-  double ***Tyzz;
-  double ***Tzx;
-  double ***Tzxz;
-  double ***Tzxx;
+  double *Txy;
+  double *Txyx;
+  double *Txyy;
+  double *Tyz;
+  double *Tyzy;
+  double *Tyzz;
+  double *Tzx;
+  double *Tzxz;
+  double *Tzxx;
 } TauArr;
 
 typedef struct {
-  double ***Vx;
-  double ***Vxx;
-  double ***Vxy;
-  double ***Vxz;
-  double ***Vy;
-  double ***Vyx;
-  double ***Vyy;
-  double ***Vyz;
-  double ***Vz;
-  double ***Vzx;
-  double ***Vzy;
-  double ***Vzz;
+  double *Vx;
+  double *Vxx;
+  double *Vxy;
+  double *Vxz;
+  double *Vy;
+  double *Vyx;
+  double *Vyy;
+  double *Vyz;
+  double *Vz;
+  double *Vzx;
+  double *Vzy;
+  double *Vzz;
 } VelArr;
 
 typedef struct {
@@ -142,9 +142,9 @@ typedef struct {
 } BefAft;
 
 typedef struct {
-  double ***Txx;
-  double ***Tyy;
-  double ***Tzz;
+  double *Txx;
+  double *Tyy;
+  double *Tzz;
   double freq;
   int mode;
   Coord in;

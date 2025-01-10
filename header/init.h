@@ -3,6 +3,7 @@
 
 void initMedium(Medium *med);
 void initCoord(Coord *co, int x, int y, int z);
+int getId(Coord co, int x, int y, int z);
 void initDiff(Diff *dif, Medium *med);
 void initPml(Pml *pml, Medium *med, Diff dif);
 void initObject(Object *con, Medium med, Pml pml, Coord sp, Coord ran);

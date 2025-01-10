@@ -70,9 +70,9 @@ int main(void) {
 
   // 媒質配置
   insertAir(&ma, ran.sr, med[E_AIR]);
-  insertObject(&ma, con);
+  insertObject(&ma, ran.sr, con);
   for(int i = 0; i < clacknum; i++) {
-    insertObject(&ma, clack[i]);
+    insertObject(&ma, ran.sr, clack[i]);
     printf("clack[%d]:%d,%d,%d\n", i, clack->sp.x, clack->sp.y, clack->sp.z);
   }
 
@@ -94,12 +94,12 @@ int main(void) {
   // }
 
   for (int t = 0; t < tmax; t++) {
-    Vel(&aft, &bef, ma, dif, ran.vr);
-    Sig(&aft, &bef, ma, dif, ran.sr, ip, t);
-    Tau(&aft, &bef, ma, dif, ran.tr);
+    Vel(&aft, &bef, ma, dif, ran);
+    Sig(&aft, &bef, ma, dif, ran, ip, t);
+    Tau(&aft, &bef, ma, dif, ran);
     // 加速度算出＆書き込み
     for(int i = 0; i < outnum; i++){
-      Acceleration(&acc[i],&aft, &bef, dif, out[i]);
+      Acceleration(&acc[i],&aft, &bef, ran.vr, dif, out[i]);
       fprintf(fp1, "%le,%le,%le," , acc[i].x,acc[i].y,acc[i].z);
     }
     fprintf(fp1,"\n");
