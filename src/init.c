@@ -127,53 +127,53 @@ void initRange(Range *ran, Coord region, Pml pml) {
 
 void initSigArr(SigArr *sa, SigRan sr) {
   int i, j, k;
-  sa->Txx = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  sa->Txxx = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  sa->Txxy = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  sa->Txxz = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  sa->Txx = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  sa->Txxx = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  sa->Txxy = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  sa->Txxz = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
 
-  sa->Tyy = malloc(sizeof(double **) * sr.Tyy.x * sr.Tyy.y * sr.Tyy.z);
-  sa->Tyyx = malloc(sizeof(double **) * sr.Tyy.x * sr.Tyy.y * sr.Tyy.z);
-  sa->Tyyy = malloc(sizeof(double **) * sr.Tyy.x * sr.Tyy.y * sr.Tyy.z);
-  sa->Tyyz = malloc(sizeof(double **) * sr.Tyy.x * sr.Tyy.y * sr.Tyy.z);
+  sa->Tyy = malloc(sizeof(double) * sr.Tyy.x * sr.Tyy.y * sr.Tyy.z);
+  sa->Tyyx = malloc(sizeof(double) * sr.Tyy.x * sr.Tyy.y * sr.Tyy.z);
+  sa->Tyyy = malloc(sizeof(double) * sr.Tyy.x * sr.Tyy.y * sr.Tyy.z);
+  sa->Tyyz = malloc(sizeof(double) * sr.Tyy.x * sr.Tyy.y * sr.Tyy.z);
 
-  sa->Tzz = malloc(sizeof(double **) * sr.Tzz.x * sr.Tzz.y * sr.Tzz.z);
-  sa->Tzzx = malloc(sizeof(double **) * sr.Tzz.x * sr.Tzz.y * sr.Tzz.z);
-  sa->Tzzy = malloc(sizeof(double **) * sr.Tzz.x * sr.Tzz.y * sr.Tzz.z);
-  sa->Tzzz = malloc(sizeof(double **) * sr.Tzz.x * sr.Tzz.y * sr.Tzz.z);
+  sa->Tzz = malloc(sizeof(double) * sr.Tzz.x * sr.Tzz.y * sr.Tzz.z);
+  sa->Tzzx = malloc(sizeof(double) * sr.Tzz.x * sr.Tzz.y * sr.Tzz.z);
+  sa->Tzzy = malloc(sizeof(double) * sr.Tzz.x * sr.Tzz.y * sr.Tzz.z);
+  sa->Tzzz = malloc(sizeof(double) * sr.Tzz.x * sr.Tzz.y * sr.Tzz.z);
 }
 
 void initTauArr(TauArr *ta, TauRan tr) {
   int i, j, k;
-  ta->Txy = malloc(sizeof(double **) * tr.Txy.x * tr.Txy.y * tr.Txy.z);
-  ta->Txyx = malloc(sizeof(double **) * tr.Txy.x * tr.Txy.y * tr.Txy.z);
-  ta->Txyy = malloc(sizeof(double **) * tr.Txy.x * tr.Txy.y * tr.Txy.z);
+  ta->Txy = malloc(sizeof(double) * tr.Txy.x * tr.Txy.y * tr.Txy.z);
+  ta->Txyx = malloc(sizeof(double) * tr.Txy.x * tr.Txy.y * tr.Txy.z);
+  ta->Txyy = malloc(sizeof(double) * tr.Txy.x * tr.Txy.y * tr.Txy.z);
 
-  ta->Tyz = malloc(sizeof(double **) * tr.Tyz.x * tr.Tyz.y * tr.Tyz.z);
-  ta->Tyzy = malloc(sizeof(double **) * tr.Tyz.x * tr.Tyz.y * tr.Tyz.z);
-  ta->Tyzz = malloc(sizeof(double **) * tr.Tyz.x * tr.Tyz.y * tr.Tyz.z);
+  ta->Tyz = malloc(sizeof(double) * tr.Tyz.x * tr.Tyz.y * tr.Tyz.z);
+  ta->Tyzy = malloc(sizeof(double) * tr.Tyz.x * tr.Tyz.y * tr.Tyz.z);
+  ta->Tyzz = malloc(sizeof(double) * tr.Tyz.x * tr.Tyz.y * tr.Tyz.z);
 
-  ta->Tzx = malloc(sizeof(double **) * tr.Tzx.x * tr.Tzx.y * tr.Tzx.z);
-  ta->Tzxz = malloc(sizeof(double **) * tr.Tzx.x * tr.Tzx.y * tr.Tzx.z);
-  ta->Tzxx = malloc(sizeof(double **) * tr.Tzx.x * tr.Tzx.y * tr.Tzx.z);
+  ta->Tzx = malloc(sizeof(double) * tr.Tzx.x * tr.Tzx.y * tr.Tzx.z);
+  ta->Tzxz = malloc(sizeof(double) * tr.Tzx.x * tr.Tzx.y * tr.Tzx.z);
+  ta->Tzxx = malloc(sizeof(double) * tr.Tzx.x * tr.Tzx.y * tr.Tzx.z);
 }
 
 void initVelArr(VelArr *va, VelRan vr) {
   int i, j, k;
-  va->Vx = malloc(sizeof(double **) * vr.Vx.x * vr.Vx.y * vr.Vx.z);
-  va->Vxx = malloc(sizeof(double **) * vr.Vx.x * vr.Vx.y * vr.Vx.z);
-  va->Vxy = malloc(sizeof(double **) * vr.Vx.x * vr.Vx.y * vr.Vx.z);
-  va->Vxz = malloc(sizeof(double **) * vr.Vx.x * vr.Vx.y * vr.Vx.z);
+  va->Vx = malloc(sizeof(double) * vr.Vx.x * vr.Vx.y * vr.Vx.z);
+  va->Vxx = malloc(sizeof(double) * vr.Vx.x * vr.Vx.y * vr.Vx.z);
+  va->Vxy = malloc(sizeof(double) * vr.Vx.x * vr.Vx.y * vr.Vx.z);
+  va->Vxz = malloc(sizeof(double) * vr.Vx.x * vr.Vx.y * vr.Vx.z);
 
-  va->Vy = malloc(sizeof(double **) * vr.Vy.x * vr.Vy.y * vr.Vy.z);
-  va->Vyx = malloc(sizeof(double **) * vr.Vy.x * vr.Vy.y * vr.Vy.z);
-  va->Vyy = malloc(sizeof(double **) * vr.Vy.x * vr.Vy.y * vr.Vy.z);
-  va->Vyz = malloc(sizeof(double **) * vr.Vy.x * vr.Vy.y * vr.Vy.z);
+  va->Vy = malloc(sizeof(double) * vr.Vy.x * vr.Vy.y * vr.Vy.z);
+  va->Vyx = malloc(sizeof(double) * vr.Vy.x * vr.Vy.y * vr.Vy.z);
+  va->Vyy = malloc(sizeof(double) * vr.Vy.x * vr.Vy.y * vr.Vy.z);
+  va->Vyz = malloc(sizeof(double) * vr.Vy.x * vr.Vy.y * vr.Vy.z);
 
-  va->Vz = malloc(sizeof(double **) * vr.Vz.x * vr.Vz.y * vr.Vz.z);
-  va->Vzx = malloc(sizeof(double **) * vr.Vz.x * vr.Vz.y * vr.Vz.z);
-  va->Vzy = malloc(sizeof(double **) * vr.Vz.x * vr.Vz.y * vr.Vz.z);
-  va->Vzz = malloc(sizeof(double **) * vr.Vz.x * vr.Vz.y * vr.Vz.z);
+  va->Vz = malloc(sizeof(double) * vr.Vz.x * vr.Vz.y * vr.Vz.z);
+  va->Vzx = malloc(sizeof(double) * vr.Vz.x * vr.Vz.y * vr.Vz.z);
+  va->Vzy = malloc(sizeof(double) * vr.Vz.x * vr.Vz.y * vr.Vz.z);
+  va->Vzz = malloc(sizeof(double) * vr.Vz.x * vr.Vz.y * vr.Vz.z);
 
 }
 
@@ -186,32 +186,32 @@ void initBefAft(BefAft *ba, Range ran) {
 void initInpalse(Inpaluse *ip, SigRan sr, Pml pml) {
   int i, j, k;
   // initCoord(&ip->in, x + pml.pl1.x - 1, y + pml.pl1.y - 1, z + pml.pl1.z - 1);//ok
-  ip->Txx = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  ip->Tyy = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  ip->Tzz = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  ip->Txx = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  ip->Tyy = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  ip->Tzz = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
 }
 
 void initMedArr(MedArr *ma, SigRan sr) {
   int i, j, k;
-  ma->ramda = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  ma->mu = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  ma->c11 = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  ma->rho = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  ma->zetaxx = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  ma->zetaxy = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  ma->zetaxz = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  ma->zetayx = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  ma->zetayy = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  ma->zetayz = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  ma->zetazx = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  ma->zetazy = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  ma->zetazz = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  ma->gamma = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  ma->khi = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  ma->xi11 = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  ma->zetadx = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  ma->zetady = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
-  ma->zetadz = malloc(sizeof(double **) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  ma->ramda = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  ma->mu = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  ma->c11 = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  ma->rho = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  ma->zetaxx = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  ma->zetaxy = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  ma->zetaxz = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  ma->zetayx = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  ma->zetayy = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  ma->zetayz = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  ma->zetazx = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  ma->zetazy = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  ma->zetazz = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  ma->gamma = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  ma->khi = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  ma->xi11 = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  ma->zetadx = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  ma->zetady = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
+  ma->zetadz = malloc(sizeof(double) * sr.Txx.x * sr.Txx.y * sr.Txx.z);
 }
 
 void initClack(Object *clack, Medium med, Pml *pml, int spx, int spy, int spz, int ranx, int rany, int ranz) {
